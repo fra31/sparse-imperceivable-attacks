@@ -1,0 +1,6 @@
+model_checkpoint_path: "nin.ckpt"
+all_model_checkpoint_paths: "model.ckpt170"
+all_model_checkpoint_paths: "model.ckpt180"
+all_model_checkpoint_paths: "model.ckpt190"
+all_model_checkpoint_paths: "model.ckpt200"
+all_model_checkpoint_paths: "nin.ckpt"
