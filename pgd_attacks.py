@@ -139,13 +139,13 @@ class PGDattack():
   def __init__(self, model, args):
     self.model = model
     self.type_attack = args['type_attack'] # 'L0', 'L0+Linf', 'L0+sigma'
-    self.num_steps = args['num_steps']
-    self.step_size = args['step_size']
-    self.n_restarts = args['n_restarts']
+    self.num_steps = args['num_steps']     # number of iterations of gradient descent for each restart
+    self.step_size = args['step_size']     # step size for gradient descent (\eta in the paper)
+    self.n_restarts = args['n_restarts']   # number of random restarts to perform
     self.rs = True                         # random starting point
-    self.epsilon = args['epsilon']         # for L0+Linf
-    self.kappa = args['kappa']             # for L0+sigma
-    self.k = args['sparsity']
+    self.epsilon = args['epsilon']         # for L0+Linf, the bound on the Linf-norm of the perturbation
+    self.kappa = args['kappa']             # for L0+sigma (see kappa in the paper), larger kappa means easier and more visible attacks
+    self.k = args['sparsity']              # maximum number of pixels that can be modified (k_max in the paper)
     
   def perturb(self, x_nat, y_nat, sess):
     adv = np.copy(x_nat)

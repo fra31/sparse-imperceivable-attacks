@@ -151,11 +151,11 @@ class CSattack():
   def __init__(self, model, args):
     self.model = model
     self.type_attack = args['type_attack'] # 'L0', 'L0+Linf', 'L0+sigma'
-    self.n_iter = args['n_iter']
-    self.n_max = args['n_max']
-    self.epsilon = args['epsilon']         # for L0+Linf
-    self.kappa = args['kappa']             # for L0+sigma
-    self.k = args['sparsity']
+    self.n_iter = args['n_iter']           # number of iterations (N_iter in the paper)
+    self.n_max = args['n_max']             # the modifications for k-pixels perturbations are sampled among the best n_max (N in the paper)
+    self.epsilon = args['epsilon']         # for L0+Linf, the bound on the Linf-norm of the perturbation
+    self.kappa = args['kappa']             # for L0+sigma (see kappa in the paper), larger kappa means easier and more visible attacks
+    self.k = args['sparsity']              # maximum number of pixels that can be modified (k_max in the paper)
     self.size_incr = args['size_incr']     # size of progressive increment of sparsity levels to check  
   
   def perturb(self, x_nat, y_nat, sess):
