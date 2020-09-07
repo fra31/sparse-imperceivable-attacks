@@ -3,7 +3,9 @@ import scipy.io
 import numpy as np
 import argparse
 
-def load_model_and_dataset(dataset):
+from utils_pt import load_data
+
+def load_model(dataset):
   if dataset == 'mnist':
     import mnist_NiN_bn
     model = mnist_NiN_bn.NiN_Model()
@@ -12,8 +14,8 @@ def load_model_and_dataset(dataset):
     saver.restore(sess, checkpoint)
     
   elif dataset == 'cifar10':
-    import cifar_NiN_bn
-    model = cifar_NiN_bn.NiN_Model()
+    import cifar10_NiN_bn
+    model = cifar10_NiN_bn.NiN_Model()
     saver = tf.train.Saver()
     checkpoint = tf.train.latest_checkpoint('/home/cifar-10-cnn/Tensorflow_version/nin_model/')
     saver.restore(sess, checkpoint)
@@ -28,11 +30,15 @@ if __name__ == '__main__':
   parser.add_argument('--dataset', type=str, default='cifar10', help='cifar10, mnist')
   parser.add_argument('--attack', type=str, default='CS', help='PGD, CS')
   parser.add_argument('--path_results', type=str, default='none')
+  parser.add_argument('--n_examples', type=int, default=50)
+  parser.add_argument('--data_dir', type=str, default= './data')
   
   hps = parser.parse_args()
   
   sess = tf.InteractiveSession()
   model = load_model(hps.dataset)
+  
+  x_test, y_test = load_data(hps.dataset, hps.n_examples, hps.data_dir)
   
   # x_test, y_test are images and labels on which the attack is run (to be loaded)
   # x_test in the format bs (batch size) x heigth x width x channels
