@@ -200,7 +200,7 @@ class CSattack():
         ind = np.argsort(logit_3, axis=0)
         
         # checks multiple-pixels modifications
-        for n3 in range(2,self.k,self.size_incr):
+        for n3 in range(1 + self.size_incr, self.k + 1, self.size_incr):
           if not found:
              for c2 in range(self.n_classes):
                if not found:
